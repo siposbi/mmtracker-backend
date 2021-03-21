@@ -21,7 +21,7 @@ class GameController(val gameRepository: GameRepository) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteMap(@RequestParam id: Long) = gameRepository.deleteById(id)
+    fun deleteGame(@RequestParam id: Long) = gameRepository.deleteById(id)
 
     @GetMapping("/{id}")
     fun getById(@RequestParam id: Long) = gameRepository.findById(id)

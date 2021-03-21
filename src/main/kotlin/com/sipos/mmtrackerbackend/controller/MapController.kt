@@ -21,7 +21,7 @@ class MapController(val mapRepository: MapRepository) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteUser(@PathVariable id: Long) = mapRepository.deleteById(id)
+    fun deleteMap(@PathVariable id: Long) = mapRepository.deleteById(id)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long) = mapRepository.findById(id)
