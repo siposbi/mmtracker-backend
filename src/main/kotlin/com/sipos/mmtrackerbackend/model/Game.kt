@@ -1,9 +1,11 @@
 package com.sipos.mmtrackerbackend.model
 
+import io.swagger.annotations.ApiModelProperty
 import javax.persistence.*
 
 @Entity
 class Game {
+    @ApiModelProperty(hidden = true)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
