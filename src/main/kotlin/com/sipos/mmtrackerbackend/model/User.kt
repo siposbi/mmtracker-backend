@@ -5,15 +5,16 @@ import io.swagger.annotations.ApiModelProperty
 import javax.persistence.*
 
 @Entity
-class User {
+class User(
     @ApiModelProperty(hidden = true)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-    var username: String? = null
-    var password: String? = null
+    var id: Long? = null,
+    var username: String,
+    var emailAddress: String,
+    var password: String,
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    var games: Set<Game>? = null
-}
+    var games: Set<Game>
+)
