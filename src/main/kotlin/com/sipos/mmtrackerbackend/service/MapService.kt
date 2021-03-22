@@ -35,12 +35,12 @@ class MapService(
     }
 
     fun updateById(map: MapDTO, id: Long): MapDTOWithId {
-        val mapWithID = MapDTOWithId(
+        val mapWithId = MapDTOWithId(
             id = id,
             fileName = map.fileName,
             name = map.name
         )
-        val mapToBeUpdated = mapDTOWithIdConverter.convertFromDTO(mapWithID)
+        val mapToBeUpdated = mapDTOWithIdConverter.convertFromDTO(mapWithId)
         val savedMap = mapRepository.save(mapToBeUpdated)
         return mapDTOWithIdConverter.convertToDTO(savedMap)
     }
