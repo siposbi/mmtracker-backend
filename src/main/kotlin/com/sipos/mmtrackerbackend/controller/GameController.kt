@@ -15,14 +15,14 @@ class GameController(val gameRepository: GameRepository) {
     fun addGame(@RequestBody game: Game) = gameRepository.save(game)
 
     @PutMapping("/{id}")
-    fun updateGame(@RequestParam id: Long, @RequestBody game: Game){
+    fun updateGame(@PathVariable id: Long, @RequestBody game: Game){
         assert(game.id == id)
         gameRepository.save(game)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteGame(@RequestParam id: Long) = gameRepository.deleteById(id)
+    fun deleteGame(@PathVariable id: Long) = gameRepository.deleteById(id)
 
     @GetMapping("/{id}")
-    fun getById(@RequestParam id: Long) = gameRepository.findById(id)
+    fun getById(@PathVariable id: Long) = gameRepository.findById(id)
 }
