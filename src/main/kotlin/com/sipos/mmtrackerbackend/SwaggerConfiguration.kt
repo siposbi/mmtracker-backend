@@ -17,7 +17,6 @@ class SwaggerConfiguration {
         return Docket(DocumentationType.SWAGGER_2)
             .select()
             .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
             .paths(Predicate.not(PathSelectors.regex("/error.*")))
             .build()
     }

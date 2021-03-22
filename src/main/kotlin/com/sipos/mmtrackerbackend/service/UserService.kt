@@ -1,9 +1,8 @@
 package com.sipos.mmtrackerbackend.service
 
-import com.sipos.mmtrackerbackend.dto.UserDTO
-import com.sipos.mmtrackerbackend.dto.UserDTOConverter
-import com.sipos.mmtrackerbackend.dto.UserDTOWithId
-import com.sipos.mmtrackerbackend.dto.UserDTOWithIdConverter
+import com.sipos.mmtrackerbackend.dto.UserConverter
+import com.sipos.mmtrackerbackend.dto.UserDTORequest
+import com.sipos.mmtrackerbackend.dto.UserDTOResponse
 import com.sipos.mmtrackerbackend.model.User
 import com.sipos.mmtrackerbackend.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -11,28 +10,27 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     val userRepository: UserRepository,
-    val userDTOConverter: UserDTOConverter,
-    val userDTOWithIdConverter: UserDTOWithIdConverter
+    val userConverter: UserConverter
 ) {
-    fun findAll(): MutableList<UserDTOWithId> {
+    fun findAll(): MutableList<UserDTOResponse> {
         val maps = userRepository.findAll()
-        val response = mutableListOf<UserDTOWithId>()
+        val response = mutableListOf<UserDTOResponse>()
         maps.forEach { user: User ->
-            response.add(userDTOWithIdConverter.convertToDTO(user))
+            response.add(userConverter.convertToResponse(user))
         }
         return response
     }
 
-    fun getById(id: Long): UserDTOWithId {
+    fun getById(id: Long): UserDTOResponse {
         val userToBeReturned = userRepository.getOne(id)
-        return userDTOWithIdConverter.convertToDTO(userToBeReturned)
+        return userConverter.convertToResponse(userToBeReturned)
     }
 
-    fun updateById(user: UserDTO, id: Long): UserDTOWithId {
+    fun updateById(user: UserDTORequest, id: Long): UserDTOResponse {
         val userToBeUpdated = userRepository.getOne(id)
         userToBeUpdated.password = user.password
         val savedUser = userRepository.save(userToBeUpdated)
-        return userDTOWithIdConverter.convertToDTO(savedUser)
+        return userConverter.convertToResponse(savedUser)
     }
 
     fun deleteById(id: Long) {

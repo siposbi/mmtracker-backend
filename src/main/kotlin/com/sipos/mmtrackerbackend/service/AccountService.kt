@@ -24,7 +24,6 @@ class AccountService(val userRepository: UserRepository) {
                 User(
                     username = account.username,
                     password = account.password,
-                    games = emptySet()
                 )
             )
             ResponseEntity.ok().build()

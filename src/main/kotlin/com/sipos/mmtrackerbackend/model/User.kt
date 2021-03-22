@@ -8,8 +8,5 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var username: String,
-    var password: String,
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    var games: Set<Game>
+    var password: String
 )

@@ -3,51 +3,34 @@ package com.sipos.mmtrackerbackend.dto
 import com.sipos.mmtrackerbackend.model.Map
 import org.springframework.stereotype.Component
 
-class MapDTO(
+data class MapDTORequest(
     var fileName: String,
     var name: String
 )
 
-class MapDTOWithId(
+data class MapDTOResponse(
     var id: Long,
     var fileName: String,
     var name: String
 )
 
+
 @Component
-class MapDTOConverter : Converter<Map, MapDTO> {
-    override fun convertToDTO(source: Map): MapDTO {
-        return MapDTO(
+class MapConverter : Converter<Map, MapDTORequest, MapDTOResponse> {
+
+    override fun convertFromRequest(source: MapDTORequest, id: Long): Map {
+        return Map(
+            id = id,
             fileName = source.fileName,
             name = source.name
         )
     }
 
-    override fun convertFromDTO(source: MapDTO): Map {
-        return Map(
-            fileName = source.fileName,
-            name = source.name,
-            games = emptySet()
-        )
-    }
-}
-
-@Component
-class MapDTOWithIdConverter : Converter<Map, MapDTOWithId> {
-    override fun convertToDTO(source: Map): MapDTOWithId {
-        return MapDTOWithId(
+    override fun convertToResponse(source: Map): MapDTOResponse {
+        return MapDTOResponse(
             id = source.id!!,
             fileName = source.fileName,
             name = source.name
-        )
-    }
-
-    override fun convertFromDTO(source: MapDTOWithId): Map {
-        return Map(
-            id = source.id,
-            fileName = source.fileName,
-            name = source.name,
-            games = emptySet()
         )
     }
 }
