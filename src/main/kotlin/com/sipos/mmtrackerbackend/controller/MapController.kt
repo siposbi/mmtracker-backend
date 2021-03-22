@@ -1,28 +1,25 @@
 package com.sipos.mmtrackerbackend.controller
 
-import com.sipos.mmtrackerbackend.model.Map
-import com.sipos.mmtrackerbackend.repository.MapRepository
+import com.sipos.mmtrackerbackend.dto.MapDTO
+import com.sipos.mmtrackerbackend.service.MapService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/maps")
-class MapController(val mapRepository: MapRepository) {
+class MapController(val mapService: MapService) {
 
     @GetMapping
-    fun findAll() = mapRepository.findAll()
+    fun findAll() = mapService.findAll()
 
     @PostMapping
-    fun addMap(@RequestBody map: Map) = mapRepository.save(map)
-
-    @PutMapping("/{id}")
-    fun updateMap(@PathVariable id: Long, @RequestBody map: Map) {
-        assert(map.id == id)
-        mapRepository.save(map)
-    }
-
-    @DeleteMapping("/{id}")
-    fun deleteMap(@PathVariable id: Long) = mapRepository.deleteById(id)
+    fun addMap(@RequestBody map: MapDTO) = mapService.add(map)
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long) = mapRepository.findById(id)
+    fun getById(@PathVariable id: Long) = mapService.getById(id)
+
+    @PutMapping("/{id}")
+    fun updateById(@PathVariable id: Long, @RequestBody map: MapDTO) = mapService.updateById(map, id)
+
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: Long) = mapService.deleteById(id)
 }
