@@ -1,28 +1,25 @@
 package com.sipos.mmtrackerbackend.controller
 
-import com.sipos.mmtrackerbackend.model.User
-import com.sipos.mmtrackerbackend.repository.UserRepository
+import com.sipos.mmtrackerbackend.dto.UserDTO
+import com.sipos.mmtrackerbackend.service.UserService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/users")
-class UserController(val userRepository: UserRepository) {
+class UserController(val userService: UserService) {
 
     @GetMapping
-    fun findAll() = userRepository.findAll()
+    fun findAll() = userService.findAll()
 
     @PostMapping
-    fun addUser(@RequestBody user: User) = userRepository.save(user)
-
-    @PutMapping("/{id}")
-    fun updateUser(@PathVariable id: Long, @RequestBody user: User) {
-        assert(user.id == id)
-        userRepository.save(user)
-    }
-
-    @DeleteMapping("/{id}")
-    fun deleteUser(@PathVariable id: Long) = userRepository.deleteById(id)
+    fun addMap(@RequestBody user: UserDTO) = userService.add(user)
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long) = userRepository.findById(id)
+    fun getById(@PathVariable id: Long) = userService.getById(id)
+
+    @PutMapping("/{id}")
+    fun updateById(@PathVariable id: Long, @RequestBody user: UserDTO) = userService.updateById(user, id)
+
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: Long) = userService.deleteById(id)
 }

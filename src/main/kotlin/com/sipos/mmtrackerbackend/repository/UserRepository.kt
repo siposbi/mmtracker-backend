@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserRepository : JpaRepository<User, Long> {
 
+    fun findByUsernameAndPassword(username: String, password: String): List<User>
 }
