@@ -23,24 +23,14 @@ class UserService(
         return response
     }
 
-    fun add(user: UserDTO): UserDTOWithId {
-        val userToBeSaved = userDTOConverter.convertFromDTO(user)
-        val savedUser = userRepository.save(userToBeSaved)
-        return userDTOWithIdConverter.convertToDTO(savedUser)
-    }
-
     fun getById(id: Long): UserDTOWithId {
-        val userToBeReturned = userRepository.findById(id).get()
+        val userToBeReturned = userRepository.getOne(id)
         return userDTOWithIdConverter.convertToDTO(userToBeReturned)
     }
 
     fun updateById(user: UserDTO, id: Long): UserDTOWithId {
-        val userWithId = UserDTOWithId(
-            id = id,
-            username = user.username,
-            emailAddress = user.emailAddress
-        )
-        val userToBeUpdated = userDTOWithIdConverter.convertFromDTO(userWithId)
+        val userToBeUpdated = userRepository.getOne(id)
+        userToBeUpdated.password = user.password
         val savedUser = userRepository.save(userToBeUpdated)
         return userDTOWithIdConverter.convertToDTO(savedUser)
     }
