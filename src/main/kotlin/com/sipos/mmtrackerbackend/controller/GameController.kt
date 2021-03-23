@@ -1,7 +1,6 @@
 package com.sipos.mmtrackerbackend.controller
 
 import com.sipos.mmtrackerbackend.dto.GameDTORequest
-import com.sipos.mmtrackerbackend.model.Game
 import com.sipos.mmtrackerbackend.service.GameService
 import org.springframework.web.bind.annotation.*
 

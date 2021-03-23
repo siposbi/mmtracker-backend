@@ -16,15 +16,7 @@ data class MapDTOResponse(
 
 
 @Component
-class MapConverter : Converter<Map, MapDTORequest, MapDTOResponse> {
-
-    override fun convertFromRequest(source: MapDTORequest, id: Long): Map {
-        return Map(
-            id = id,
-            fileName = source.fileName,
-            name = source.name
-        )
-    }
+class MapConverter : ResponseConverter<Map, MapDTOResponse> {
 
     override fun convertToResponse(source: Map): MapDTOResponse {
         return MapDTOResponse(

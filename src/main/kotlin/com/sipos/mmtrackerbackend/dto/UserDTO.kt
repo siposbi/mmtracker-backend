@@ -15,15 +15,7 @@ data class UserDTOResponse(
 
 
 @Component
-class UserConverter : Converter<User, UserDTORequest, UserDTOResponse> {
-
-    override fun convertFromRequest(source: UserDTORequest, id: Long): User {
-        return User(
-            id = id,
-            username = source.username,
-            password = source.password
-        )
-    }
+class UserConverter : ResponseConverter<User, UserDTOResponse> {
 
     override fun convertToResponse(source: User): UserDTOResponse {
         return UserDTOResponse(

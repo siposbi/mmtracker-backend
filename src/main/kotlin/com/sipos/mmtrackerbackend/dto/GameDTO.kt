@@ -26,11 +26,7 @@ data class GameDTOResponse(
 
 @Component
 class GameConverter(val mapConverter: MapConverter, val userConverter: UserConverter) :
-    Converter<Game, GameDTORequest, GameDTOResponse> {
-
-    override fun convertFromRequest(source: GameDTORequest, id: Long): Game {
-        TODO("Not yet implemented")
-    }
+    ResponseConverter<Game, GameDTOResponse> {
 
     override fun convertToResponse(source: Game): GameDTOResponse {
         return GameDTOResponse(
