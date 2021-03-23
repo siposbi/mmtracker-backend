@@ -9,8 +9,8 @@ data class GameDTORequest(
     var kills: Int,
     var assists: Int,
     var deaths: Int,
-    var user: UserDTOResponse,
-    var map: MapDTOResponse
+    var user_id: Long,
+    var map_id: Long
 )
 
 data class GameDTOResponse(
@@ -20,7 +20,7 @@ data class GameDTOResponse(
     var kills: Int,
     var assists: Int,
     var deaths: Int,
-    var user: UserDTOResponse,
+    val user: UserDTOResponse,
     var map: MapDTOResponse
 )
 
@@ -44,5 +44,4 @@ class GameConverter(val mapConverter: MapConverter, val userConverter: UserConve
             map = mapConverter.convertToResponse(source.map)
         )
     }
-
 }
