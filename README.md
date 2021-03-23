@@ -6,18 +6,18 @@ This is a REST API, which was made as an assignment for subject Kotlin-based Sof
 
 This product requires a working [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) to be installed, but it shouldn't be difficult to replace it with any SQL Server you might like.
 
-1. Specify your username in `application.properties`:
+1. Specify your SQL Server username in `application.properties`:
 ```
 spring.datasource.username=<YOUR_USERNAME>
 ```
-2. Specify your password in `application.properties`:
+2. Specify your SQL Server password in `application.properties`:
 ```
 spring.datasource.password=<YOUR_PASSWORD>
 ```
 3. Run `create.sql` to set up the required schema.
 4. Optionally run `data.sql`, which contains some data for presentational purposes.
 
-Because both `create.sql` and `data.sql` contain statements to remove data, be sure to only select the statements you need.
+Because both `create.sql` and `data.sql` contain statements to remove data, make sure to only select the statements you actually need.
 
 ## Usage
 
