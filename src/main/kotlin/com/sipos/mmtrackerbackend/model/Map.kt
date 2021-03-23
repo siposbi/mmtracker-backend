@@ -3,6 +3,7 @@ package com.sipos.mmtrackerbackend.model
 import javax.persistence.*
 
 @Entity
+@Table(name = "maps")
 data class Map(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

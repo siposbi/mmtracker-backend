@@ -4,8 +4,6 @@ import com.sipos.mmtrackerbackend.dto.GameConverter
 import com.sipos.mmtrackerbackend.dto.GameDTORequest
 import com.sipos.mmtrackerbackend.dto.GameDTOResponse
 import com.sipos.mmtrackerbackend.model.Game
-import com.sipos.mmtrackerbackend.model.Map
-import com.sipos.mmtrackerbackend.model.User
 import com.sipos.mmtrackerbackend.repository.GameRepository
 import com.sipos.mmtrackerbackend.repository.MapRepository
 import com.sipos.mmtrackerbackend.repository.UserRepository
@@ -39,7 +37,16 @@ class GameService(
     fun updateById(game: GameDTORequest, id: Long): GameDTOResponse {
         val user = userRepository.getOne(game.user_id)
         val map = mapRepository.getOne(game.map_id)
-        return updateOrAdd(user, map, game)
+        val gameToBeModified = gameRepository.getOne(id)
+        gameToBeModified.roundsWon = game.roundsWon
+        gameToBeModified.roundsLost = game.roundsLost
+        gameToBeModified.kills = game.kills
+        gameToBeModified.assists = game.assists
+        gameToBeModified.deaths = game.deaths
+        gameToBeModified.user = user
+        gameToBeModified.map = map
+        val savedGame = gameRepository.save(gameToBeModified)
+        return gameConverter.convertToResponse(savedGame)
     }
 
     fun deleteById(id: Long) {
@@ -58,10 +65,6 @@ class GameService(
     fun addGameToUser(userId: Long, game: GameDTORequest): GameDTOResponse {
         val user = userRepository.getOne(userId)
         val map = mapRepository.getOne(game.map_id)
-        return updateOrAdd(user, map, game)
-    }
-
-    private fun updateOrAdd(user: User, map: Map, game: GameDTORequest): GameDTOResponse{
         val gameToBeSaved = Game(
             roundsWon = game.roundsWon,
             roundsLost = game.roundsLost,
