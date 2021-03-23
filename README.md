@@ -21,4 +21,4 @@ Because both `create.sql` and `data.sql` contain statements to remove data, make
 
 ## Usage
 
-Documentation available via Swagger UI after launch at [localhost:8080](http://localhost:8080/swagger-ui/index.html#/)
+Documentation available via Swagger UI after launch at [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/)
