@@ -4,8 +4,18 @@ This is a REST API, which was made as an assignment for subject Kotlin-based Sof
 
 ## Installation
 
-This product requires a working [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) to be installed, but it shouldn't be difficult to replace it with any SQL Server you might like.  
-Don't forget to fill in your SQL Server username and password in ***application.properties***
+This product requires a working [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) to be installed, but it shouldn't be difficult to replace it with any SQL Server you might like.
+
+1. Specify your username in `application.properties`:
+```
+spring.datasource.username=<YOUR_USERNAME>
+```
+2. Specify your password in `application.properties`:
+```
+spring.datasource.password=<YOUR_PASSWORD>
+```
+3. Run `create.sq` to set up the required schema.
+4. Optionally run `data.sql`, which contains some data for representational purposes.
 
 ## Usage
 
