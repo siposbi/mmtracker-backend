@@ -15,7 +15,7 @@ spring.datasource.username=<YOUR_USERNAME>
 spring.datasource.password=<YOUR_PASSWORD>
 ```
 3. Run `create.sq` to set up the required schema.
-4. Optionally run `data.sql`, which contains some data for representational purposes.
+4. Optionally run `data.sql`, which contains some data for presentational purposes.
 
 ## Usage
 
