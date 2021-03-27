@@ -18,8 +18,8 @@ class GameController(val gameService: GameService) {
     fun getById(@PathVariable id: Long) = gameService.getById(id)
 
     @PutMapping("/{id}")
-    fun updateGame(@PathVariable id: Long, @RequestBody game: GameDTORequest) = gameService.updateById(game, id)
+    fun updateById(@PathVariable id: Long, @RequestBody game: GameDTORequest) = gameService.updateById(game, id)
 
     @DeleteMapping("/{id}")
-    fun deleteGame(@PathVariable id: Long) = gameService.deleteById(id)
+    fun deleteById(@PathVariable id: Long) = gameService.deleteById(id)
 }
