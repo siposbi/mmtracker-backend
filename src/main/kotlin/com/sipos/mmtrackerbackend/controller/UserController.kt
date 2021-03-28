@@ -4,11 +4,19 @@ import com.sipos.mmtrackerbackend.dto.GameDTORequest
 import com.sipos.mmtrackerbackend.dto.UserDTORequest
 import com.sipos.mmtrackerbackend.service.GameService
 import com.sipos.mmtrackerbackend.service.UserService
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/users")
 class UserController(val userService: UserService, val gameService: GameService) {
+
+    @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
+    fun handleException(): ResponseEntity<Unit> {
+        return ResponseEntity.notFound().build()
+    }
 
     @GetMapping
     fun findAll() = userService.findAll()

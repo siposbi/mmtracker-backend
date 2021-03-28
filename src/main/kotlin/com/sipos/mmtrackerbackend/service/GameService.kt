@@ -8,6 +8,7 @@ import com.sipos.mmtrackerbackend.repository.GameRepository
 import com.sipos.mmtrackerbackend.repository.MapRepository
 import com.sipos.mmtrackerbackend.repository.UserRepository
 import org.springframework.stereotype.Service
+import javax.persistence.EntityNotFoundException
 
 @Service
 class GameService(
@@ -54,6 +55,8 @@ class GameService(
     }
 
     fun getGamesOfUser(id: Long): List<GameDTOResponse> {
+        if (!userRepository.existsById(id))
+            throw EntityNotFoundException()
         val games = gameRepository.findByUserId(id)
         val response = mutableListOf<GameDTOResponse>()
         games.forEach { game: Game ->

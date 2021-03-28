@@ -8,17 +8,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class AccountService(val userRepository: UserRepository) {
-    fun login(account: AccountDTO): ResponseEntity<Unit> {
-        return if (userRepository.existsByUsernameAndPassword(account.username, account.password)) {
-            ResponseEntity.ok().build()
-        } else {
-            ResponseEntity.badRequest().build()
-        }
+    fun login(account: AccountDTO): Boolean {
+        return userRepository.existsByUsernameAndPassword(account.username, account.password)
     }
 
-    fun register(account: AccountDTO): ResponseEntity<Unit> {
+    fun register(account: AccountDTO): Boolean {
         return if (userRepository.existsByUsername(account.username)) {
-            ResponseEntity.badRequest().build()
+            false
         } else {
             userRepository.save(
                 User(
@@ -26,7 +22,7 @@ class AccountService(val userRepository: UserRepository) {
                     password = account.password,
                 )
             )
-            ResponseEntity.ok().build()
+            true
         }
     }
 }

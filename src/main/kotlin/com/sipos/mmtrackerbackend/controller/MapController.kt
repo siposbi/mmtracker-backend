@@ -2,11 +2,19 @@ package com.sipos.mmtrackerbackend.controller
 
 import com.sipos.mmtrackerbackend.dto.MapDTORequest
 import com.sipos.mmtrackerbackend.service.MapService
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/maps")
 class MapController(val mapService: MapService) {
+
+    @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
+    fun handleException(): ResponseEntity<Unit> {
+        return ResponseEntity.notFound().build()
+    }
 
     @GetMapping
     fun findAll() = mapService.findAll()
