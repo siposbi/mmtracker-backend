@@ -1,6 +1,7 @@
 # CS: GO Mm Tracker REST API
 
-This is a REST API, which was made as an assignment for subject Kotlin-based Software Development.
+This is a REST API, which was made as an assignment for subject Kotlin-based Software Development.  
+This API does not implement any security features other than logging in and registering, this means that, anyone can add and remove anything they want to.
 
 ## Installation
 
@@ -19,8 +20,18 @@ spring.datasource.username=<YOUR_USERNAME>
 spring.datasource.password=<YOUR_PASSWORD>
 ```
 4. Run `create.sql` to set up the required schema.
-5. Optionally run `data.sql`, which contains some data for presentational purposes.  
-6. API is ready for use
+5. Optionally run `data.sql`, which contains some data for presentational purposes.
+6. API is ready for use  
+
+<details>
+  <summary>Example login details</summary>
+
+| Username | Password |
+|----------|----------|
+| admin    | adminpw  |
+| sipos    | sipospw  |
+| dani     | danipw   |
+</details>
 
 Because both `create.sql` and `data.sql` contain statements to remove data, make sure to only select the statements you actually need.
 
