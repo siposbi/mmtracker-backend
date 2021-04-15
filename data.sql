@@ -12,9 +12,9 @@ VALUES ('de_inferno', 'Inferno'),
 
 --To add users
 INSERT INTO users (username, password)
-VALUES ('admin', 'adminpw'),
-       ('sipos', 'sipospw'),
-       ('dani', 'danipw');
+VALUES ('admin', '$2a$10$tcGTwDEo7lEuVhXv2UxhF..LEk4UgueCqL5olWKpE6a5/f79FRs/i'), --adminpw
+       ('sipos', '$2a$10$DJ9j8jXljXh..7HWy8.MtOCbL2Pll6gNiYUs4lnRGJ1lgstPLvDTC'), --sipospw
+       ('dani', '$2a$10$.B1eUdV1W86fDxgcwdicYu32ilJjA1r6POvYvaNb53lo.LIznj4p6');  --danipw
 
 --To add games
 INSERT INTO games (rounds_won, rounds_lost, kills, assists, deaths, map_id, user_id)
