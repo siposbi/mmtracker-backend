@@ -9,7 +9,7 @@ import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/games")
-class GameController(val gameService: GameService) {
+class GameController(private val gameService: GameService) {
 
     @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
     fun handleException(): ResponseEntity<Unit> {

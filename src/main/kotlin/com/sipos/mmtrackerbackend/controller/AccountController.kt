@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/accounts")
-class AccountController(val accountService: AccountService) {
+class AccountController(private val accountService: AccountService) {
 
     @PostMapping("/login")
     fun login(@RequestBody account: AccountDTO): ResponseEntity<Unit> {

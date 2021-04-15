@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MapService(
-    val mapRepository: MapRepository,
-    val mapConverter: MapConverter
+    private val mapRepository: MapRepository,
+    private val mapConverter: MapConverter
 ) {
     fun findAll(): MutableList<MapDTOResponse> {
         val maps = mapRepository.findAll()

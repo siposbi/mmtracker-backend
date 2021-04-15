@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(
-    val userRepository: UserRepository,
-    val userConverter: UserConverter
+    private val userRepository: UserRepository,
+    private val userConverter: UserConverter
 ) {
     fun findAll(): MutableList<UserDTOResponse> {
         val maps = userRepository.findAll()

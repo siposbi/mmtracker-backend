@@ -9,7 +9,7 @@ import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/maps")
-class MapController(val mapService: MapService) {
+class MapController(private val mapService: MapService) {
 
     @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
     fun handleException(): ResponseEntity<Unit> {

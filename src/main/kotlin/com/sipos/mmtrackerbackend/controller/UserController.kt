@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException
 
 @RestController
 @RequestMapping("/api/users")
-class UserController(val userService: UserService, val gameService: GameService) {
+class UserController(private val userService: UserService, val gameService: GameService) {
 
     @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
     fun handleException(): ResponseEntity<Unit> {

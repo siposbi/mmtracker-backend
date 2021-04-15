@@ -12,10 +12,10 @@ import javax.persistence.EntityNotFoundException
 
 @Service
 class GameService(
-    val gameRepository: GameRepository,
-    val gameConverter: GameConverter,
-    val userRepository: UserRepository,
-    val mapRepository: MapRepository
+    private val gameRepository: GameRepository,
+    private val gameConverter: GameConverter,
+    private val userRepository: UserRepository,
+    private val mapRepository: MapRepository
 ) {
     fun findAll(): MutableList<GameDTOResponse> {
         val games = gameRepository.findAll()
