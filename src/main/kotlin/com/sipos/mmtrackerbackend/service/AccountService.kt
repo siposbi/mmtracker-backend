@@ -15,7 +15,7 @@ class AccountService(private val userRepository: UserRepository) {
         return try {
             val user = userRepository.findByUsername(account.username)
             encoder.matches(account.password, user.password)
-        } catch (e: EmptyResultDataAccessException){
+        } catch (e: EmptyResultDataAccessException) {
             false
         }
     }

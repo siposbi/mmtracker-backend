@@ -26,13 +26,6 @@ class UserService(
         return userConverter.convertToResponse(userToBeReturned)
     }
 
-    fun updateById(user: UserDTORequest, id: Long): UserDTOResponse {
-        val userToBeUpdated = userRepository.getOne(id)
-        userToBeUpdated.password = user.password
-        val savedUser = userRepository.save(userToBeUpdated)
-        return userConverter.convertToResponse(savedUser)
-    }
-
     fun deleteById(id: Long) {
         userRepository.deleteById(id)
     }

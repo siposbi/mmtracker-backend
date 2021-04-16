@@ -1,7 +1,6 @@
 package com.sipos.mmtrackerbackend.controller
 
 import com.sipos.mmtrackerbackend.dto.GameDTORequest
-import com.sipos.mmtrackerbackend.dto.UserDTORequest
 import com.sipos.mmtrackerbackend.service.GameService
 import com.sipos.mmtrackerbackend.service.UserService
 import org.springframework.dao.EmptyResultDataAccessException
@@ -23,9 +22,6 @@ class UserController(private val userService: UserService, val gameService: Game
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long) = userService.getById(id)
-
-    @PutMapping("/{id}")
-    fun updateById(@PathVariable id: Long, @RequestBody user: UserDTORequest) = userService.updateById(user, id)
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long) = userService.deleteById(id)
