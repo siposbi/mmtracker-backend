@@ -24,6 +24,7 @@ class AccountController(private val userRepository: UserRepository) {
                 return ResponseEntity.ok().build()
             }
         }
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
     }
 
@@ -33,6 +34,7 @@ class AccountController(private val userRepository: UserRepository) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build()
         }
         userRepository.save(User(username = account.username, password = encoder.encode(account.password)))
+
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 }
