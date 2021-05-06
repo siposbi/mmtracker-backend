@@ -1,5 +1,6 @@
 package com.sipos.mmtrackerbackend.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -8,6 +9,12 @@ data class Map(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+    @Column(unique = true)
     var fileName: String,
-    var name: String
+    @Column(unique = true)
+    var name: String,
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "map", cascade = [CascadeType.REMOVE])
+    var games: List<Game> = emptyList()
 )
