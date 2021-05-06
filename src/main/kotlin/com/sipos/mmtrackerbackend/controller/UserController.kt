@@ -2,11 +2,11 @@ package com.sipos.mmtrackerbackend.controller
 
 import com.sipos.mmtrackerbackend.dto.*
 import com.sipos.mmtrackerbackend.model.Game
-import com.sipos.mmtrackerbackend.model.User
 import com.sipos.mmtrackerbackend.repository.GameRepository
 import com.sipos.mmtrackerbackend.repository.MapRepository
 import com.sipos.mmtrackerbackend.repository.UserRepository
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.persistence.EntityNotFoundException
@@ -28,33 +28,43 @@ class UserController(
 
     @GetMapping
     fun findAll(): ResponseEntity<List<UserDTOResponse>> {
-        val maps = userRepository.findAll()
-        val response = mutableListOf<UserDTOResponse>()
-        maps.forEach { user: User ->
-            response.add(userConverter.convertToResponse(user))
-        }
-        return ResponseEntity.ok(response)
+        val users = userRepository.findAll().map { userConverter.convertToResponse(it) }
+
+        return ResponseEntity.ok(users)
     }
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): ResponseEntity<UserDTOResponse> {
         val userToBeReturned = userRepository.getOne(id)
+
         return ResponseEntity.ok(userConverter.convertToResponse(userToBeReturned))
     }
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<Unit> {
         userRepository.deleteById(id)
+
         return ResponseEntity.ok().build()
     }
 
     @GetMapping("/{id}/games")
-    fun getGames(@PathVariable id: Long): ResponseEntity<List<GameDTOResponse>> {
-        val games = gameRepository.findByUserId(id)
-        val response = mutableListOf<GameDTOResponse>()
-        games.forEach { game: Game ->
-            response.add(gameConverter.convertToResponse(game))
+    fun getGames(
+        @PathVariable id: Long,
+        @RequestParam(required = false, defaultValue = "0") page: Int,
+        @RequestParam(required = false, defaultValue = Integer.MAX_VALUE.toString()) size: Int,
+    ): ResponseEntity<MutableMap<String, Any>> {
+        val games = gameRepository.findByUserId(id, PageRequest.of(page, size))
+
+        if (games.totalPages <= page) {
+            return ResponseEntity.badRequest().build()
         }
+
+        val response: MutableMap<String, Any> = HashMap()
+        response["games"] = games.content.map { gameConverter.convertToResponse(it) }
+        response["currentPage"] = games.number
+        response["totalItems"] = games.totalElements
+        response["totalPages"] = games.totalPages
+
         return ResponseEntity.ok(response)
     }
 
@@ -73,6 +83,7 @@ class UserController(
                 map = map,
             )
         )
+
         return ResponseEntity.ok(gameConverter.convertToResponse(gameSaved))
     }
 }

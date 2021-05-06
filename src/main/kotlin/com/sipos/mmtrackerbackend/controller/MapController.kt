@@ -24,12 +24,9 @@ class MapController(
 
     @GetMapping
     fun findAll(): ResponseEntity<List<MapDTOResponse>> {
-        val maps = mapRepository.findAll()
-        val response = mutableListOf<MapDTOResponse>()
-        maps.forEach { map: Map ->
-            response.add(mapConverter.convertToResponse(map))
-        }
-        return ResponseEntity.ok(response)
+        val maps = mapRepository.findAll().map { mapConverter.convertToResponse(it) }
+
+        return ResponseEntity.ok(maps)
     }
 
     @PostMapping
@@ -43,12 +40,14 @@ class MapController(
             return ResponseEntity.ok(response)
         }
         val savedMap = mapRepository.save(Map(fileName = map.fileName, name = map.name))
+
         return ResponseEntity.ok(mapConverter.convertToResponse(savedMap))
     }
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): ResponseEntity<MapDTOResponse> {
         val mapToBeReturned = mapRepository.getOne(id)
+
         return ResponseEntity.ok(mapConverter.convertToResponse(mapToBeReturned))
     }
 
@@ -58,12 +57,14 @@ class MapController(
         mapToBeUpdated.fileName = map.fileName
         mapToBeUpdated.name = map.name
         val savedMap = mapRepository.save(mapToBeUpdated)
+
         return ResponseEntity.ok(mapConverter.convertToResponse(savedMap))
     }
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<Unit> {
         mapRepository.deleteById(id)
+
         return ResponseEntity.ok().build()
     }
 }

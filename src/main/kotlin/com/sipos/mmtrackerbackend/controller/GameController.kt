@@ -3,7 +3,6 @@ package com.sipos.mmtrackerbackend.controller
 import com.sipos.mmtrackerbackend.dto.GameConverter
 import com.sipos.mmtrackerbackend.dto.GameDTORequest
 import com.sipos.mmtrackerbackend.dto.GameDTOResponse
-import com.sipos.mmtrackerbackend.model.Game
 import com.sipos.mmtrackerbackend.repository.GameRepository
 import com.sipos.mmtrackerbackend.repository.MapRepository
 import com.sipos.mmtrackerbackend.repository.UserRepository
@@ -28,17 +27,15 @@ class GameController(
 
     @GetMapping
     fun findAll(): ResponseEntity<List<GameDTOResponse>> {
-        val games = gameRepository.findAll()
-        val response = mutableListOf<GameDTOResponse>()
-        games.forEach { game: Game ->
-            response.add(gameConverter.convertToResponse(game))
-        }
-        return ResponseEntity.ok(response)
+        val games = gameRepository.findAll().map { gameConverter.convertToResponse(it) }
+
+        return ResponseEntity.ok(games)
     }
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): ResponseEntity<GameDTOResponse> {
         val gameToBeReturned = gameRepository.getOne(id)
+
         return ResponseEntity.ok(gameConverter.convertToResponse(gameToBeReturned))
     }
 
@@ -55,12 +52,14 @@ class GameController(
         gameToBeModified.user = user
         gameToBeModified.map = map
         val savedGame = gameRepository.save(gameToBeModified)
+
         return ResponseEntity.ok(gameConverter.convertToResponse(savedGame))
     }
 
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long): ResponseEntity<Unit> {
         gameRepository.deleteById(id)
+
         return ResponseEntity.ok().build()
     }
 }
